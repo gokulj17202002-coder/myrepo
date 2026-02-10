@@ -24,15 +24,7 @@ body {
   text-align:center;
   width:450px;
   backdrop-filter: blur(10px);
-}
-
-input {
-  padding:12px;
-  width:90%;
-  margin:10px;
-  border:none;
-  border-radius:10px;
-  font-size:16px;
+  position:relative;
 }
 
 button {
@@ -45,78 +37,98 @@ button {
 }
 
 .yes { background:white; color:#ff006e; }
-.no { background:#222; color:white; }
+.no  { background:#222; color:white; position:absolute; }
 
-h1 { margin-bottom:10px; }
-p { font-size:18px; line-height:1.5; }
 </style>
 </head>
 
 <body>
 
-<!-- STEP 1 — NAME INPUT -->
+<!-- STEP 1 -->
 <div class="box" id="step1">
-  <h1>💘 Create Our Love Page</h1>
-  <input id="yourName" placeholder="Your Name">
-  <input id="partnerName" placeholder="Partner Name">
+  <h1>💘 Create Love Page</h1>
+  <input id="yourName" placeholder="Your Name"
+         style="padding:12px;width:90%;margin:8px;border-radius:10px;border:none;">
+  <input id="partnerName" placeholder="Partner Name"
+         style="padding:12px;width:90%;margin:8px;border-radius:10px;border:none;">
   <br>
   <button class="yes" onclick="goStep2()">Start ❤️</button>
 </div>
 
-<!-- STEP 2 — QUESTION -->
+<!-- STEP 2 -->
 <div class="box" id="step2" style="display:none;">
   <h1 id="qText"></h1>
-  <p>You are the most special person in my life.</p>
+  <p>You are the most special person in my life 💖</p>
 
   <button class="yes" onclick="goStep3()">YES 💍</button>
-  <button class="no" onclick="noClick()">NO ❌</button>
+  <button class="no" id="noBtn">NO ❌</button>
 </div>
 
-<!-- STEP 3 — GRAND MESSAGE -->
+<!-- STEP 3 -->
 <div class="box" id="step3" style="display:none;">
-  <h1 id="dear"></h1>
-
-  <p id="loveMsg"></p>
+  <h1 id="finalDear"></h1>
+  <p>
+    From the moment you came into my life, everything became brighter.
+    Your smile is my favorite place.
+    Your love is my greatest gift.
+    I choose you today and forever. 💞
+  </p>
 
   <h2>💖 Happy Valentine’s Day My Love 💖</h2>
-  <h3 id="from"></h3>
+  <h3 id="finalFrom"></h3>
 </div>
 
-
 <script>
-let yName = "";
-let pName = "";
+let yName="", pName="";
 
 function goStep2(){
-  yName = document.getElementById("yourName").value || "My Love";
-  pName = document.getElementById("partnerName").value || "Sweetheart";
+  yName = document.getElementById("yourName").value || "Me";
+  pName = document.getElementById("partnerName").value || "My Love";
 
-  document.getElementById("step1").style.display="none";
-  document.getElementById("step2").style.display="block";
+  step1.style.display="none";
+  step2.style.display="block";
 
   document.getElementById("qText").innerText =
     pName + ", Will You Be Mine Forever? 💘";
+
+  setTimeout(placeNoButton, 200);
 }
 
-function noClick(){
-  alert("❌ Wrong answer 😜 Only YES is allowed!");
+function placeNoButton(){
+  const btn = document.getElementById("noBtn");
+  btn.style.left = "260px";
+  btn.style.top  = "140px";
 }
 
 function goStep3(){
-  document.getElementById("step2").style.display="none";
-  document.getElementById("step3").style.display="block";
+  step2.style.display="none";
+  step3.style.display="block";
 
-  document.getElementById("dear").innerText = "Dear " + pName + " ❤️";
+  document.getElementById("finalDear").innerText =
+    "Dear " + pName + " ❤️";
 
-  document.getElementById("loveMsg").innerText =
-    "From the moment you came into my life, everything became brighter. " +
-    "Your smile is my favorite sight, your happiness is my biggest wish, " +
-    "and your love is my greatest treasure. I want to walk every step of " +
-    "my life with you — today, tomorrow, and forever.";
-
-  document.getElementById("from").innerText =
+  document.getElementById("finalFrom").innerText =
     "— Forever Yours, " + yName;
 }
+
+/* 🎮 NO BUTTON ESCAPE GAME */
+const noBtn = document.getElementById("noBtn");
+
+document.addEventListener("mousemove", (e)=>{
+  if(step2.style.display !== "block") return;
+
+  const rect = noBtn.getBoundingClientRect();
+  const dx = e.clientX - (rect.left + rect.width/2);
+  const dy = e.clientY - (rect.top + rect.height/2);
+  const dist = Math.sqrt(dx*dx + dy*dy);
+
+  if(dist < 120){
+    const x = Math.random() * 300;
+    const y = Math.random() * 200;
+    noBtn.style.left = x + "px";
+    noBtn.style.top  = y + "px";
+  }
+});
 </script>
 
 </body>
