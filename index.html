@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Valentine Grand Proposal 💖</title>
+
+<style>
+body {
+  margin:0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg,#ff006e,#ff8fab);
+  color:white;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  overflow:hidden;
+}
+
+.box {
+  background: rgba(255,255,255,0.15);
+  padding:40px;
+  border-radius:20px;
+  text-align:center;
+  width:450px;
+  backdrop-filter: blur(10px);
+}
+
+input {
+  padding:12px;
+  width:90%;
+  margin:10px;
+  border:none;
+  border-radius:10px;
+  font-size:16px;
+}
+
+button {
+  padding:14px 26px;
+  font-size:18px;
+  border:none;
+  border-radius:30px;
+  cursor:pointer;
+  margin:10px;
+}
+
+.yes { background:white; color:#ff006e; }
+.no { background:#222; color:white; }
+
+h1 { margin-bottom:10px; }
+p { font-size:18px; line-height:1.5; }
+</style>
+</head>
+
+<body>
+
+<!-- STEP 1 — NAME INPUT -->
+<div class="box" id="step1">
+  <h1>💘 Create Our Love Page</h1>
+  <input id="yourName" placeholder="Your Name">
+  <input id="partnerName" placeholder="Partner Name">
+  <br>
+  <button class="yes" onclick="goStep2()">Start ❤️</button>
+</div>
+
+<!-- STEP 2 — QUESTION -->
+<div class="box" id="step2" style="display:none;">
+  <h1 id="qText"></h1>
+  <p>You are the most special person in my life.</p>
+
+  <button class="yes" onclick="goStep3()">YES 💍</button>
+  <button class="no" onclick="noClick()">NO ❌</button>
+</div>
+
+<!-- STEP 3 — GRAND MESSAGE -->
+<div class="box" id="step3" style="display:none;">
+  <h1 id="dear"></h1>
+
+  <p id="loveMsg"></p>
+
+  <h2>💖 Happy Valentine’s Day My Love 💖</h2>
+  <h3 id="from"></h3>
+</div>
+
+
+<script>
+let yName = "";
+let pName = "";
+
+function goStep2(){
+  yName = document.getElementById("yourName").value || "My Love";
+  pName = document.getElementById("partnerName").value || "Sweetheart";
+
+  document.getElementById("step1").style.display="none";
+  document.getElementById("step2").style.display="block";
+
+  document.getElementById("qText").innerText =
+    pName + ", Will You Be Mine Forever? 💘";
+}
+
+function noClick(){
+  alert("❌ Wrong answer 😜 Only YES is allowed!");
+}
+
+function goStep3(){
+  document.getElementById("step2").style.display="none";
+  document.getElementById("step3").style.display="block";
+
+  document.getElementById("dear").innerText = "Dear " + pName + " ❤️";
+
+  document.getElementById("loveMsg").innerText =
+    "From the moment you came into my life, everything became brighter. " +
+    "Your smile is my favorite sight, your happiness is my biggest wish, " +
+    "and your love is my greatest treasure. I want to walk every step of " +
+    "my life with you — today, tomorrow, and forever.";
+
+  document.getElementById("from").innerText =
+    "— Forever Yours, " + yName;
+}
+</script>
+
+</body>
+</html>
